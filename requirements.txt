@@ -1,0 +1,2 @@
+pymupdf==1.23.26
+pyinstaller==6.10.0
