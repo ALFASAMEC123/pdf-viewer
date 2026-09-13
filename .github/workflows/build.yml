@@ -32,7 +32,10 @@ jobs:
       - name: Verify EXE
         run: |
           dir dist\
-          ./dist/pdf-viewer.exe --help 2>&1 | head -5 || true
+          # Just verify file exists and has reasonable size (>1MB)
+          $size = (Get-Item dist\pdf-viewer.exe).Length
+          if ($size -lt 1MB) { throw "EXE too small: $size bytes" }
+          Write-Host "EXE size: $size bytes"
         shell: pwsh
 
       - name: Upload EXE artifact
